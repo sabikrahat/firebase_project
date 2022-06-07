@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "220185171703",
+    "project_id": "sabikrahat-72428",
+    "storage_bucket": "sabikrahat-72428.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220185171703:android:33c2243292c65dd7f9e5f2",
+        "android_client_info": {
+          "package_name": "com.sabikrahat.firebase_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220185171703-a9n6ivs1b1fqpt9rd5ab2joeu342ra4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8xMuMyyg5ihPqDTyBR0pnJWc1fq8Stuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220185171703-a9n6ivs1b1fqpt9rd5ab2joeu342ra4l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
