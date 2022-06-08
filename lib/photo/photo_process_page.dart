@@ -35,8 +35,6 @@ class PhotoProcess extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   }
-                  print('Last Updated: ${snapshot.data!.lastUpdated}');
-                  print('Photo URL: ${snapshot.data!.url}');
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Column(

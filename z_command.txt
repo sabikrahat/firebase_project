@@ -1,6 +1,6 @@
 flutter clean
 flutter pub get
-flutter build web --release
+flutter build web --web-renderer html --release
 cd build/web
 git init
 git remote add origin https://github.com/sabikrahat/firebase_project

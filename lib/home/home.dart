@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/model/counter_model.dart';
-import 'package:firebase_project/photo/photo_process.dart';
+import 'package:firebase_project/photo/photo_process_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
