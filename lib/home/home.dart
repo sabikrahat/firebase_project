@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/model/counter_model.dart';
+import 'package:firebase_project/photo/photo_process.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -74,6 +75,23 @@ class HomePage extends StatelessWidget {
                       ],
                     );
                   },
+                ),
+                const Spacer(),
+                ElevatedButton.icon(
+                  icon: const Padding(
+                    padding: EdgeInsets.only(left: 15.0),
+                    child: Icon(Icons.photo),
+                  ),
+                  label: const Padding(
+                    padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
+                    child: Text('Photo Process'),
+                  ),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const PhotoProcess(),
+                    ),
+                  ),
                 ),
                 const Spacer(),
                 const Text('Developed by: Sabik Rahat'),
