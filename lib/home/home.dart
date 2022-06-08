@@ -101,33 +101,59 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () async {
-          CounterModel counter = await FirebaseFirestore.instance
-              .collection('firebase_project')
-              .doc('counter')
-              .get()
-              .then((value) {
-            if (value.exists) {
-              return CounterModel.fromDocument(value);
-            }
-            return CounterModel(
-              count: 0,
-              lastUpdated: Timestamp.now(),
-              updatedBy: '',
-            );
-          });
-          //
-          await FirebaseFirestore.instance
-              .collection('firebase_project')
-              .doc('counter')
-              .set({
-            'count': counter.count + 1,
-            'lastUpdated': Timestamp.now(),
-            'updatedBy': FirebaseAuth.instance.currentUser?.displayName,
-          });
-        },
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: null,
+            tooltip: 'Increase',
+            child: const Icon(Icons.add),
+            onPressed: () async {
+              CounterModel counter = await FirebaseFirestore.instance
+                  .collection('firebase_project')
+                  .doc('counter')
+                  .get()
+                  .then((value) {
+                if (value.exists) {
+                  return CounterModel.fromDocument(value);
+                }
+                return CounterModel(
+                  count: 0,
+                  lastUpdated: Timestamp.now(),
+                  updatedBy: '',
+                );
+              });
+              //
+              await FirebaseFirestore.instance
+                  .collection('firebase_project')
+                  .doc('counter')
+                  .set({
+                'count': counter.count + 1,
+                'lastUpdated': Timestamp.now(),
+                'updatedBy': FirebaseAuth.instance.currentUser?.displayName,
+              });
+            },
+          ),
+          const SizedBox(height: 5.0),
+          FloatingActionButton(
+            heroTag: null,
+            tooltip: 'Clear Database',
+            child: const Icon(Icons.delete),
+            onPressed: () async {
+              await FirebaseFirestore.instance
+                  .collection('firebase_project')
+                  .doc('counter')
+                  .delete()
+                  .then(
+                    (value) => ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Database Cleared'),
+                      ),
+                    ),
+                  );
+            },
+          ),
+        ],
       ),
     );
   }
