@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_project/home/home.dart';
-import 'package:firebase_project/login/login.dart';
+import 'home/home.dart';
+import 'login/login.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
