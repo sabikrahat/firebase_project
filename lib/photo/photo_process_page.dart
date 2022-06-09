@@ -1,12 +1,12 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/model/photo_model.dart';
 import 'package:firebase_project/photo/api_mobile/image_picker/modal_bottom_sheet_menu.dart';
 import 'package:firebase_project/photo/api_mobile/upload_image/upload_image_mobile.dart';
-import 'package:firebase_project/photo/api_web/upload_image_web.dart';
+import 'package:firebase_project/photo/api_web/upload_image/upload_image_web.dart';
+import 'package:firebase_project/photo/api_web/image_picker/image_pick_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -83,15 +83,21 @@ class PhotoProcess extends StatelessWidget {
                           onPressed: () async {
                             String? url;
                             if (kIsWeb) {
-                              url = await uploadImageWeb();
+                              PlatformFile? file =
+                                  await filePickFromDeviceWeb();
+                              if (file != null) {
+                                url = await uploadImageWeb(file);
+                              }
                             } else {
-                              File? file =
+                              final file =
                                   await modalBottomSheetMenu(context: context);
                               if (file != null) {
                                 url = await uploadImageMobile(file: file);
                               }
                             }
+                            print('URL: $url');
                             if (url != null) {
+                              print('URL: $url');
                               await FirebaseFirestore.instance
                                   .collection('firebase_project')
                                   .doc('photo')
