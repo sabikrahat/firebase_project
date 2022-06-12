@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_project/home/functions/modal_bottom_sheet.dart';
 import 'package:firebase_project/model/counter_model.dart';
 import 'package:flutter/material.dart';
+
+import 'functions/upload_image.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -38,7 +43,7 @@ class HomePage extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CircularProgressIndicator();
                 }
-                 if (!snapshot.hasData) {
+                if (!snapshot.hasData) {
                   return const Text('0', style: TextStyle(fontSize: 40));
                 }
                 return Column(
@@ -59,23 +64,41 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () async {
-          CounterModel counter = await FirebaseFirestore.instance
-              .collection('firebase_project')
-              .doc('counter')
-              .get()
-              .then((v) => CounterModel.fromDocument(v));
-          await FirebaseFirestore.instance
-              .collection('firebase_project')
-              .doc('counter')
-              .set({
-            'count': counter.count + 1,
-            'lastUpdated': Timestamp.now(),
-            'updatedBy': FirebaseAuth.instance.currentUser?.email,
-          });
-        },
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: null,
+            child: const Icon(Icons.upload),
+            onPressed: () async {
+              File? file =  await modalBottomSheetMenu(context: context);
+              print('picked file: $file');
+              if(file != null){
+                final downloadUrl = await uploadImageMobile(file: file);
+                print('downloadUrl: $downloadUrl');
+              }
+            },
+          ),
+          const SizedBox(height: 10.0),
+          FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () async {
+              CounterModel counter = await FirebaseFirestore.instance
+                  .collection('firebase_project')
+                  .doc('counter')
+                  .get()
+                  .then((v) => CounterModel.fromDocument(v));
+              await FirebaseFirestore.instance
+                  .collection('firebase_project')
+                  .doc('counter')
+                  .set({
+                'count': counter.count + 1,
+                'lastUpdated': Timestamp.now(),
+                'updatedBy': FirebaseAuth.instance.currentUser?.email,
+              });
+            },
+          ),
+        ],
       ),
     );
   }
